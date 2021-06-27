@@ -16,10 +16,12 @@
      
     </v-container>
      <v-dialog
-      v-model="dialog"
-       transition="dialog-top-transition"
-      max-width="600px">
-        <login-frm></login-frm>
+	 v-if="dialog"
+	 v-model="dialog"
+	 transition="dialog-top-transition"
+	 max-width="400px">
+	<login-frm>
+	</login-frm>
     </v-dialog>
   </div>
 </template>
@@ -27,12 +29,13 @@
 import LoginFrm from "@/components/LoginFrm.vue";
 export default {
   components: {
-    LoginFrm,
+    LoginFrm, 
   },
   data() {
     return {
-      dialog: false,
-    };
+	dialog: false,
+    }
+
   },
   /* components: {
     item,

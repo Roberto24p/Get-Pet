@@ -1,27 +1,53 @@
-<template lang="">
- 
-  <v-card>
-    <v-card-title>
-    <span class="headline">Login</span>
-    </v-card-title>
-    <v-card-text>
-      <v-text-field
-                  label="Usuario"
-                  required
-                ></v-text-field>
-    </v-card-text> 
+<template lang="es">
+    <div>
+    <v-card v-if="show">
+	<v-card-title class="justify-center">
+	    <span class="headline">Login</span>
+	</v-card-title>
+	<v-card-text>
+	    <v-text-field label="Usuario" required ></v-text-field>
+	</v-card-text> 
+	<v-card-text>
+	    <v-text-field type="password" label="Password"> </v-text-field>
+	</v-card-text> 
+	<v-card-actions class="justify-center pb-6">
+	    <v-btn>Login </v-btn>
+	    <v-btn @click="show=false">Sign in </v-btn>
+	</v-card-actions>
   </v-card>
-
-</template>
+  <v-card v-else>
+	<v-card-title class="justify-center">
+	    <span class="headline">Sign In</span>
+	</v-card-title>
+	<v-card-text>
+	    <v-text-field label="E-mail" type="email" required >
+	    </v-text-field>
+	</v-card-text>
+	<v-card-text>
+	    <v-text-field label="Usuario" required></v-text-field> 
+	</v-card-text>
+	<v-card-text>
+	    <v-text-field type="password" label="Password"></v-text-field>
+	</v-card-text>
+	<v-card-text>
+	    <v-text-field type="password" label="Confirm Password"></v-text-field>
+	</v-card-text>
+	<v-card-actions class="justify-center pb-6">
+	    <v-btn>Register</v-btn>
+	</v-card-actions>
+    </v-card>
+    </div>
+ </template>
 <script>
-export default {
+
+export default { 
   data: function () {
     return {
       username: "",
       password: "",
       nameErrors: null,
       listaUsuarios: [],
-      
+      show: true
     };
   },
   methods: {
@@ -45,6 +71,9 @@ export default {
         });
     },
   },
+    mounted(){
+	console.log(this.show)
+    }
 };
 </script>
 <style lang="">
