@@ -1,45 +1,23 @@
 <template lang="es">
-    <div>
-    <v-card v-if="show">
-	<v-card-title class="justify-center">
-	    <span class="headline">Login</span>
-	</v-card-title>
-	<v-card-text>
-	    <v-text-field label="Usuario" required ></v-text-field>
-	</v-card-text> 
-	<v-card-text>
-	    <v-text-field type="password" label="Password"> </v-text-field>
-	</v-card-text> 
-	<v-card-actions class="justify-center pb-6">
-	    <v-btn>Login </v-btn>
-	    <v-btn @click="show=false">Sign in </v-btn>
-	</v-card-actions>
-  </v-card>
-  <v-card v-else>
-	<v-card-title class="justify-center">
-	    <span class="headline">Sign In</span>
-	</v-card-title>
-	<v-card-text>
-	    <v-text-field label="E-mail" type="email" required >
-	    </v-text-field>
-	</v-card-text>
-	<v-card-text>
-	    <v-text-field label="Usuario" required></v-text-field> 
-	</v-card-text>
-	<v-card-text>
-	    <v-text-field type="password" label="Password"></v-text-field>
-	</v-card-text>
-	<v-card-text>
-	    <v-text-field type="password" label="Confirm Password"></v-text-field>
-	</v-card-text>
-	<v-card-actions class="justify-center pb-6">
-	    <v-btn>Register</v-btn>
-	</v-card-actions>
-    </v-card>
+    <div max-width="80%">
+      <v-card >
+	      <v-card-title class="justify-center">
+	        <span class="headline">Login</span>
+	      </v-card-title>
+  	    <v-card-text>
+  	      <v-text-field label="Usuario" required v-model="username"></v-text-field>
+  	    </v-card-text> 
+  	    <v-card-text>
+  	      <v-text-field type="password" label="Password" v-model="password"> </v-text-field>
+  	    </v-card-text> 
+      	<v-card-actions class="justify-center pb-6">
+    	    <v-btn @click="login">Login </v-btn>
+          <v-btn @click="close">Close </v-btn>
+      	</v-card-actions>
+      </v-card>
     </div>
- </template>
+</template>
 <script>
-
 export default { 
   data: function () {
     return {
@@ -52,7 +30,7 @@ export default {
   },
   methods: {
     login: function () {
-      this.$store.state.services
+     /* this.$store.state.services
         .login({
           email: this.username,
           password: this.password,
@@ -68,12 +46,23 @@ export default {
             alert("Credenciales incorrectas");
             console.log("Loggin Incrorrecto");
           }
-        });
+        });*/
+        if(this.username == "roberto" && this.password == "roberto"){
+          localStorage.setItem("key", "123")
+          console.log("hoala mundo")
+          this.$router.push('/Home')
+        }
     },
-  },
-    mounted(){
-	console.log(this.show)
+    showSignIn(){
+      this.$emit("showSignIn")
+    },
+    close(){
+      this.$emit("close")
     }
+  },
+  mounted(){
+  	console.log(this.show)
+  }
 };
 </script>
 <style lang="">

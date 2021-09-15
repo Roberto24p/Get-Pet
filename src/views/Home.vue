@@ -3,15 +3,13 @@
     <v-col
       class="d-flex justify-space-around flex-wrap"
       style="margin-top: -30px"
-    >
-   
+    > 
         <item
           style="margin-top: 30px"
           v-for="mascota in mascotaLista"
           v-bind:pet="mascota"
           :key="mascota.i"
         ></item>
-   
     </v-col>
   </v-container>
 </template>
