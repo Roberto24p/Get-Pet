@@ -5,10 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    services
+    services,
+     token: null
   },
   mutations: {
-    
+     setToken(state, payload){
+        state.token = payload
+        localStorage.setItem(state.token.key, state.token.value)
+        console.log("En el Store")
+     },
+     removeToken(state){
+        localStorage.removeItem(state.token.key)
+        state.token = null
+     }
   },
   actions: {
     

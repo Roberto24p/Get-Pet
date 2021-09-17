@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default { 
   data: function () {
     return {
@@ -28,6 +29,7 @@ export default {
       show: true
     };
   },
+  computed: mapState(['token']),
   methods: {
     login: function () {
      /* this.$store.state.services
@@ -48,9 +50,10 @@ export default {
           }
         });*/
         if(this.username == "roberto" && this.password == "roberto"){
-          localStorage.setItem("key", "123")
           console.log("hoala mundo")
           this.$router.push('/Home')
+          let key = { key:"key", value:"123" }
+          this.$store.commit("setToken", key)
         }
     },
     showSignIn(){

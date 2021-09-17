@@ -43,8 +43,8 @@
 	    v-model="dialog"
 	    transition="dialog-top-transition"
 	    max-width="400px" >
-        <sigIn v-show="dialogSignIn" @close="close"></sigIn>
-        <login-frm v-show="dialogLogIn" @close="close"></login-frm>
+        <sigIn v-show="dialogSignIn" @close="close" ></sigIn>
+        <login-frm v-show="dialogLogIn" @close="close"> </login-frm>
     </v-dialog>
  </v-container>
   
@@ -53,25 +53,22 @@
 <script>
 import LoginFrm from "@/components/LoginFrm.vue"
 import sigIn from "@/components/signIn.vue"
+import { mapState, mapMutations } from 'vuex';
 export default {
   components:{
     LoginFrm,
     sigIn
   },
-  watch:{
-    token(){
-      console.log( 'hola mundo')
-      return  localStorage.getItem('key') 
-    }
-  },
+ 
   data(){
     return{
       dialog: false, 
       dialogLogIn: false,
       dialogSignIn: false, 
-      token: ''
     }
   },
+  computed: mapState(['token']),
+
   methods:{ 
     showLogIn(){
       this.dialogLogIn = true
@@ -88,11 +85,12 @@ export default {
     
     },
     logOut(){
-      localStorage.removeItem('key')
-    }
-  },
+      this.$store.commit("removeToken")
+
+    },
+     },
   mounted(){
-    this.token = localStorage.getItem('key')
+    //this.token = localStorage.getItem('key')
   }
 }
 </script>
