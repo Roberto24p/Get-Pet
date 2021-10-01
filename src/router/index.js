@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Layout from '@/layout/LayoutIndex.vue'
+import Profile from '@/views/Profile.vue'
 import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
@@ -8,14 +8,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Layout,
-    children:[
-      {
-        path:'Home',
-        component: Home
-      }
-    ]
+    component: Home,
+    name: 'Home'
   },
+  {
+    path: '/perfil',
+    component: Profile,
+    name: 'Profile'
+  }
  
 ]
 

@@ -4,12 +4,20 @@
       <v-toolbar-title>GET PET</v-toolbar-title>
       <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
+      <v-btn  text  to="/" >
+          Home 
+      </v-btn> 
       <v-btn text v-on:click="showSignIn"  v-if="token == null">
         Únete
       </v-btn>
       <v-btn text v-on:click="showLogIn" v-if="token == null">
         Accede
       </v-btn>
+   
+     <v-btn  text to="/perfil" v-if="token !=null">
+          Perfil 
+      </v-btn> 
+     
       <v-btn text>
         Ayudanos
       </v-btn>
@@ -30,9 +38,12 @@
         <v-list-item link v-on:click="showSignIn" v-if="token == null">
           <v-list-item-title>Únete</v-list-item-title>
         </v-list-item>
+        <v-list-item link v-if="token !=null">
+          <v-list-item-title>Perfil</v-list-item-title>
+        </v-list-item>
         <v-list-item link>
           <v-list-item-title>Ayudanos</v-list-item-title>
-        </v-list-item>
+        </v-list-item> 
          <v-list-item link v-on:click="logOut" v-if="token !=null">
           <v-list-item-title>Cerrar Sesion</v-list-item-title>
         </v-list-item>
@@ -75,6 +86,9 @@ export default {
       this.dialog = true
       this.dialogSignIn = false
     },
+    push(){
+      this.$router.push('perfil')
+    },
      showSignIn(){
       this.dialogSignIn = true
       this.dialog = true
@@ -90,6 +104,7 @@ export default {
     },
      },
   mounted(){
+    this.$store.commit('loadToken')
     //this.token = localStorage.getItem('key')
   }
 }

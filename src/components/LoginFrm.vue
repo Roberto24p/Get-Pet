@@ -51,9 +51,9 @@ export default {
         });*/
         if(this.username == "roberto" && this.password == "roberto"){
           console.log("hoala mundo")
-          this.$router.push('/Home')
           let key = { key:"key", value:"123" }
           this.$store.commit("setToken", key)
+          this.close()
         }
     },
     showSignIn(){
