@@ -1,6 +1,6 @@
 <template>
 <v-container>
-    <v-toolbar flat color="primary">
+    <v-toolbar flat  color="primary">
       <v-toolbar-title>GET PET</v-toolbar-title>
       <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -32,13 +32,16 @@
         </v-btn>
       </template>
       <v-list dense>
+         <v-list-item link  to="/" >
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
         <v-list-item link v-on:click="showLogIn" v-if="token == null">
           <v-list-item-title>Acceder</v-list-item-title>
         </v-list-item>
         <v-list-item link v-on:click="showSignIn" v-if="token == null">
           <v-list-item-title>Únete</v-list-item-title>
         </v-list-item>
-        <v-list-item link v-if="token !=null">
+        <v-list-item link  to="/perfil" v-if="token !=null">
           <v-list-item-title>Perfil</v-list-item-title>
         </v-list-item>
         <v-list-item link>

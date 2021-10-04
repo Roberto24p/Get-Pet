@@ -1,9 +1,7 @@
 <template >
   <v-container>
     <v-col
-      class="d-flex justify-space-around flex-wrap"
-      style="margin-top: -30px"
-    > 
+      class="d-flex justify-space-around flex-wrap " style="margin-top: 30px"> 
         <item
           style="margin-top: 30px"
           v-for="mascota in mascotaLista"
