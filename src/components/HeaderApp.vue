@@ -67,7 +67,7 @@
 <script>
 import LoginFrm from "@/components/LoginFrm.vue"
 import sigIn from "@/components/signIn.vue"
-import { mapState, mapMutations } from 'vuex';
+import { mapState } from 'vuex';
 export default {
   components:{
     LoginFrm,

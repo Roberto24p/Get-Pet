@@ -5,63 +5,49 @@
 	        <span class="headline">Login</span>
 	      </v-card-title>
   	    <v-card-text>
-  	      <v-text-field label="Usuario" required v-model="username"></v-text-field>
+  	      <v-text-field label="Usuario" required v-model="user.username"></v-text-field>
   	    </v-card-text> 
   	    <v-card-text>
-  	      <v-text-field type="password" label="Password" v-model="password"> </v-text-field>
+  	      <v-text-field type="password" label="Password" v-model="user.password"> </v-text-field>
   	    </v-card-text> 
       	<v-card-actions class="justify-center pb-6">
-    	    <v-btn @click="login">Login </v-btn>
+    	    <v-btn @click="loginMethod">Login </v-btn>
           <v-btn @click="close">Close </v-btn>
       	</v-card-actions>
       </v-card>
     </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default { 
   data: function () {
     return {
-      username: "",
-      password: "",
+      user: {
+        username: "",
+        password: ""
+      }
+      ,
       nameErrors: null,
       listaUsuarios: [],
       show: true
     };
   },
-  computed: mapState(['token']),
   methods: {
-    login: function () {
-     /* this.$store.state.services
-        .login({
-          email: this.username,
-          password: this.password,
-        })
-        .then((data) => {
-          console.log(data.token);
-          if (data.token != null) {
-            this.$router.push("profile");
-            console.log("Loggin Correcto");
-          } else {
-            this.username = "";
-            this.password = "";
-            alert("Credenciales incorrectas");
-            console.log("Loggin Incrorrecto");
-          }
-        });*/
-        if(this.username == "roberto" && this.password == "roberto"){
-          console.log("hoala mundo")
-          let key = { key:"key", value:"123" }
-          this.$store.commit("setToken", key)
+   loginMethod(){
+      const val = this.login(this.user)
+      val.then(e=>{
+        if(e == true){
           this.close()
         }
+      })
     },
     showSignIn(){
       this.$emit("showSignIn")
     },
     close(){
       this.$emit("close")
-    }
+    },
+    ...mapActions(['login'])
   },
   mounted(){
   	console.log(this.show)

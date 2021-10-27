@@ -5,17 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    services,
+     services,
      token: null
   },
-  mutations: {
+  mutations: {          
      setToken(state, payload){
         state.token = payload
-        localStorage.setItem(state.token.key, state.token.value)
-        console.log("En el Store")
+       // localStorage.setItem(state.token.key, state.token.value)
+       // console.log("En el Store")
      },
      removeToken(state){
-        localStorage.removeItem(state.token.key)
+        localStorage.removeItem('token')
         state.token = null
      },
      loadToken(state){
@@ -24,7 +24,23 @@ export default new Vuex.Store({
      }
   },
   actions: {
-    
+    async login({commit}, user){
+       try{
+         const resp = await fetch('http://localhost:8090/login', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(user),
+         })
+         const userR = await resp.json()
+         commit('setToken', userR)
+         localStorage.setItem('token', userR.token)
+         return true
+       }catch(e){
+         console.log("Error: "+e)
+       }
+    }
   },
   modules: {
     
