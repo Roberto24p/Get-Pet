@@ -4,16 +4,16 @@
     max-width="344"
   >
     <v-img
-      src="https://images.dog.ceo/breeds/setter-english/n02100735_3899.jpg"
+      v-bind:src="imageUri"
       height="200px"
     ></v-img>
 
     <v-card-title>
-      Cuchurrumina
+      {{pet.name}}
     </v-card-title>
 
     <v-card-subtitle>
-      Bonita
+      {{pet.description}}
     </v-card-subtitle>
 
     <v-card-actions>
@@ -47,10 +47,21 @@
 </template>
 
 <script>
+import {storage} from '../services/fireBase';
+const ref = storage.ref()
 export default {
     data: () => ({
       show: false,
+      imageUri: ''
     }),
+    props: {
+      pet: Object
+    },
+    async created(){
+      const refImg = ref.child(pet.pictures)
+      this.imageUri = await getDownloadURL()
+      console.log(this.imageUri)
+    }
   }
 </script>
 

@@ -16,10 +16,11 @@ export default new Vuex.Store({
      },
      removeToken(state){
         localStorage.removeItem('token')
+        localStorage.removeItem('id')
         state.token = null
      },
      loadToken(state){
-        let token = localStorage.getItem('key');
+        let token = localStorage.getItem('token');
         if( token != null) state.token = token
      }
   },
@@ -36,6 +37,8 @@ export default new Vuex.Store({
          const userR = await resp.json()
          commit('setToken', userR)
          localStorage.setItem('token', userR.token)
+         localStorage.setItem('id', userR.user)
+
          return true
        }catch(e){
          console.log("Error: "+e)

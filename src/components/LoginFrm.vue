@@ -33,13 +33,15 @@ export default {
     };
   },
   methods: {
-   loginMethod(){
-      const val = this.login(this.user)
-      val.then(e=>{
+    loginMethod(){
+      this.login(this.user)
+       .then(e=>{
         if(e == true){
           this.close()
         }
       })
+      
+
     },
     showSignIn(){
       this.$emit("showSignIn")
