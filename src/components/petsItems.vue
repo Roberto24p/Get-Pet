@@ -1,11 +1,11 @@
 <template>
   <v-card
     class="mx-auto"
-    max-width="344"
+    max-width="300"
   >
     <v-img
       v-bind:src="imageUri"
-      height="200px"
+     height="300"
     ></v-img>
 
     <v-card-title>
@@ -21,28 +21,14 @@
         color="orange lighten-2"
         text
       >
-        Historia
+        Editar
       </v-btn>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        icon
-        @click="show = !show"
-      >
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-      </v-btn>
+     
     </v-card-actions>
 
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-
-        <v-card-text>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla facilis at quibusdam maiores. Corporis delectus optio dolor quia consequuntur impedit quo voluptatibus aut, quibusdam autem soluta veritatis aperiam earum quasi.
-        </v-card-text>
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 
@@ -52,15 +38,19 @@ const ref = storage.ref()
 export default {
     data: () => ({
       show: false,
-      imageUri: ''
+      imageUri: '',
+      id: ''
     }),
     props: {
       pet: Object
     },
-    async created(){
-      const refImg = ref.child(pet.pictures)
-      this.imageUri = await getDownloadURL()
-      console.log(this.imageUri)
+    async mounted(){
+      console.log(this.pet.pictures[0])
+      ref.child(this.pet.pictures[0]).getDownloadURL().then(e=>{
+         this.imageUri = e
+         console.log(e)
+      })
+    
     }
   }
 </script>

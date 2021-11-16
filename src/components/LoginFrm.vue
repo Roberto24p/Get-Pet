@@ -34,11 +34,14 @@ export default {
   },
   methods: {
     loginMethod(){
+      alert(this.user.password)
       this.login(this.user)
        .then(e=>{
         if(e == true){
+ 
           this.close()
         }
+      
       })
       
 

@@ -10,7 +10,8 @@ export default new Vuex.Store({
   },
   mutations: {          
      setToken(state, payload){
-        state.token = payload
+        console.log(payload)
+        state.token = payload.token
        // localStorage.setItem(state.token.key, state.token.value)
        // console.log("En el Store")
      },
@@ -27,7 +28,8 @@ export default new Vuex.Store({
   actions: {
     async login({commit}, user){
        try{
-         const resp = await fetch('http://localhost:8090/login', {
+          alert(process.env.RUTA_LOGIN)
+         const resp = await fetch(/*'http://192.168.100.6:8090/login'*/ process.env.VUE_APP_RUTA_LOGIN, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',

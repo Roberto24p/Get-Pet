@@ -109,6 +109,7 @@ export default {
   mounted(){
     this.$store.commit('loadToken')
     console.log(this.token)
+    
     //this.token = localStorage.getItem('key')
   }
 }
