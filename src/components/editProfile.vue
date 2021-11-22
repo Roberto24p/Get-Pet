@@ -1,5 +1,5 @@
 <template>
-   <v-row justify="center">
+   <v-row justify="center" v-if="profile!=null">
     <v-dialog
       v-model="dialog"
       fullscreen
@@ -111,9 +111,7 @@
   </v-row>
 </template>
 <script>
-import {storage} from '../services/fireBase';
-import { v4 as uuidv4 } from 'uuid';
-const ref = storage.ref()
+
 import { mapState } from 'vuex';
 export default ({
     data(){
@@ -131,28 +129,30 @@ export default ({
           this.imagen = e
         },
         send(){
-          const newUri = 'moment/'+ uuidv4()+ '/'+this.imagen.name
-          const refImg = ref.child(newUri)
-          const metadata = {contentType: 'image/jpeg'}
-          const profile = {
-            avatar: newUri
-          }
-          refImg.put(this.imagen, metadata)
-           .then(e=>{
-             profile.names = this.profile.names
-             profile.about = this.profile.about
-             profile.city = this.profile.city
-             fetch(process.env.VUE_APP_RUTA_PUT_PROFILE, {
-               method: 'PUT',
-               body: JSON.stringify(profile),
-               headers: {
+            this.$store.state.services.uploadImagen(this.imagen)
+         .then(img=>{
+            const profile = {
+              avatar: img,
+              names: this.profile.names,
+              about: this.profile.about,
+              city: this.profile.city
+            }
+            console.log(profile)
+            fetch('http://192.168.100.6:8090/profiles/', {
+              method: 'PUT',
+              body: JSON.stringify(profile),
+              headers: {
                  'Authorization': this.token,
-                  'Content-Type': 'application/json',
-               }
-             }).then(resp=>{
-                console.log(resp)
-             })
-           })
+               'Content-Type': 'application/json',
+              }
+            }).then(resp=>{
+              console.log("Errorrrs")
+              console.log(resp)
+            }).catch(e=>console.log(e) )
+          })
+          
+         
+      
         }
     },
     props: {

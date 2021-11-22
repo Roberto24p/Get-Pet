@@ -4,7 +4,7 @@
     max-width="300"
   >
     <v-img
-      v-bind:src="imageUri"
+      v-bind:src="pet.pictures[0]"
      height="300"
     ></v-img>
 
@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import {storage} from '../services/fireBase';
-const ref = storage.ref()
+
 export default {
     data: () => ({
       show: false,
@@ -43,14 +42,6 @@ export default {
     }),
     props: {
       pet: Object
-    },
-    async mounted(){
-      console.log(this.pet.pictures[0])
-      ref.child(this.pet.pictures[0]).getDownloadURL().then(e=>{
-         this.imageUri = e
-         console.log(e)
-      })
-    
     }
   }
 </script>

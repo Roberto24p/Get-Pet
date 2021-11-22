@@ -1,9 +1,9 @@
-<template>
-  <v-container >
+<template >
+  <v-container v-if="profile!=null" >
       <v-row>
           <v-col xs="12" md="3">
               <v-avatar color="warning lighten-2"  size="110" >
-                  <v-img :src="avatar" alt="avatar"></v-img>
+                  <v-img :src="profile.avatar" alt="avatar"></v-img>
               </v-avatar>
               <h2 class="pl-4">{{profile.names}} </h2>
           </v-col>
@@ -28,15 +28,7 @@ export default {
        return {
            avatar: ''
        }
-   },  
-  created(){
-      console.log(this.profile.avatar)
-      ref.child(this.profile.avatar).getDownloadURL().then(e=>{
-         this.avatar = e
-         console.log(e)
-      })
-
-  }
+   }
 }
 </script>
 

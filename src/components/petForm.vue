@@ -126,9 +126,7 @@
 </template>
 
 <script>
-import {storage} from '../services/fireBase';
-import { v4 as uuidv4 } from 'uuid';
-const ref = storage.ref()
+
 export default {
     data () {
       return {
@@ -152,10 +150,25 @@ export default {
       clickImagen(e){
         console.log(e)
         this.imagen = e
+
       },
       send(){
         this.dialog = false
-        const newUri = 'moment/'+ uuidv4()+ '/'+this.imagen.name
+         this.$store.state.services.uploadImagen(this.imagen)
+         .then(img=>{
+           console.log(img)
+           this.pet.pictures = img
+           fetch(process.env.VUE_APP_RUTA_ADD_PET, {
+              method: 'POST',
+              body: JSON.stringify(this.pet),
+              headers: {
+               'Content-Type': 'application/json',
+              }
+            }).then(resp=>{
+              console.log(resp)
+            })
+          })
+       /* const newUri = 'moment/'+ uuidv4()+ '/'+this.imagen.name
         const refImg = ref.child(newUri)
         const metada = {contentType: 'image/jpeg'}
         this.pet.pictures = newUri
@@ -171,7 +184,7 @@ export default {
             }).then(resp=>{
               console.log(resp)
             })
-          })
+          })*/
       }
     }
 }

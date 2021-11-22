@@ -55,7 +55,7 @@ export default {
       }
     },
     computed: mapState(['token']),
-    created: async function(){
+    mounted: async function(){
       const perfil = "" 
       console.log(this.token)
       const profile = await fetch(process.env.VUE_APP_RUTA_PROFILE+this.token,
@@ -69,7 +69,8 @@ export default {
       )
       const res = profile.json()
       res.then(x=>{
-        this.prof = x.message
+        console.log(x)
+          this.prof = x.message
         const arrayPets = x.message.pets 
         console.log(arrayPets)
         let petsNoAdoption = []
@@ -82,6 +83,8 @@ export default {
         this.petsAdoption = petsAdoption
         this.pets = petsNoAdoption
       })
+       
+      
     }
 }
 </script>
