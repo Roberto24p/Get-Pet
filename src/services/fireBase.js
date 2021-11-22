@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import 'firebase/compat/storage';
+import 'firebase/compat/storage'
 
 firebase.initializeApp({
   apiKey: "AIzaSyBT2gj8fdE-6w6qURexzIZiQI_7tVlSwY4",
