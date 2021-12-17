@@ -97,6 +97,7 @@
                           @change="clickImagen($event)"
                           type="file"
                         ></v-file-input>
+                        <v-img :src="profile.avatar" alt="avatar" width="50%"> </v-img>
                     </v-col>
                 </v-row>
             </v-container>
@@ -118,43 +119,46 @@ export default ({
         return{
             dialog: false,
             imagen: null,
-
-
         }
     },
     computed: mapState(['token']),
     methods:{
+        showImagen(e){
+          const reader = new FileReader()
+          reader.onload = (e)=>{
+            this.profile.avatar = e.target.result
+          }
+          reader.readAsDataURL(e)
+        },
         clickImagen(e){
           console.log(e)
           this.imagen = e
+          this.showImagen(e)
         },
         send(){
             this.$store.state.services.uploadImagen(this.imagen)
-         .then(img=>{
-            const profile = {
-              avatar: img,
-              names: this.profile.names,
-              about: this.profile.about,
-              city: this.profile.city
-            }
-            console.log(profile)
-            fetch('http://192.168.100.6:8090/profiles/', {
-              method: 'PUT',
-              body: JSON.stringify(profile),
-              headers: {
-                 'Authorization': this.token,
-               'Content-Type': 'application/json',
-              }
-            }).then(resp=>{
-              console.log("Errorrrs")
-              console.log(resp)
-            }).catch(e=>console.log(e) )
-          })
-          
-         
-      
-        }
-    },
+              .then(img=>{
+                const profile = {
+                  avatar: img,
+                  names: this.profile.names,
+                  about: this.profile.about,
+                  city: this.profile.city
+                }
+                console.log(profile)
+                fetch('http://192.168.100.6:8090/profiles/', {
+                  method: 'PUT',
+                  body: JSON.stringify(profile),
+                  headers: {
+                    'Authorization': this.token,
+                  'Content-Type': 'application/json',
+                  }
+                }).then(resp=>{
+                  console.log("Errorrrs")
+                  console.log(resp)
+                }).catch(e=>console.log(e) )
+              })
+          }
+      },
     props: {
         profile: Object,
     },

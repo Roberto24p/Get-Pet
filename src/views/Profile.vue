@@ -36,9 +36,8 @@ import perfilHeader from "@/components/perfilHeader"
 import { mapState } from 'vuex';
 import petsItems from "@/components/petsItems"
 import petForm from "@/components/petForm"
-import {storage} from '../services/fireBase';
 import editProfile from "@/components/editProfile"
-const ref = storage.ref()
+
 export default {
     components:{
       editProfile,
@@ -56,7 +55,6 @@ export default {
     },
     computed: mapState(['token']),
     mounted: async function(){
-      const perfil = "" 
       console.log(this.token)
       const profile = await fetch(process.env.VUE_APP_RUTA_PROFILE+this.token,
         {
